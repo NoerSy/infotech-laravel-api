@@ -13,7 +13,7 @@ class CreateConsolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sewa_status', function (Blueprint $table) {
+        Schema::create('sewa_statuses', function (Blueprint $table) {
             $table->id();
             $table->String('status', 20);
             $table->timestamps();
@@ -22,12 +22,12 @@ class CreateConsolesTable extends Migration
         Schema::create('consoles', function (Blueprint $table) {
             $table->id();
             $table->String('merek', 50);
-            $table->String('type' . 20);
+            $table->String('type', 20);
             $table->foreignId('isSewa')->references('id')
-                ->on('sewa_status')
+                ->on('sewa_statuses')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->text('descripsion')->nullable();
+            $table->text('description')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -40,7 +40,7 @@ class CreateConsolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sewa_status');
+        Schema::dropIfExists('sewa_statuses');
         Schema::dropIfExists('consoles');
     }
 }

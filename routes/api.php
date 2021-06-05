@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ConsolesController;
 use App\Http\Controllers\Api\SupplierController;
+use App\Http\Controllers\Api\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +26,15 @@ Route::prefix('v1')->group(function () {
         Route::post('refresh', [AuthController::class, 'refresh']);
         Route::post('me', [AuthController::class, 'me']);
     });
+
+    Route::prefix('users')->group(function () {
+        Route::get('all', [UsersController::class, 'index']);
+    }); 
+
+    Route::prefix('consoles')->group(function () {
+        Route::get('all', [ConsolesController::class, 'index']);
+        Route::post('add', [ConsolesController::class, 'add']);
+    }); 
 
     Route::middleware('jwt.verify')->group(function(){
         Route::apiResource('suppliers', SupplierController::class, [
