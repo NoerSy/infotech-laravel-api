@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 
 class Consoles extends Model implements JWTSubject
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -23,6 +24,7 @@ class Consoles extends Model implements JWTSubject
         'merek',
         'type',
         'isSewa',
+        'image',
         'description'
     ];
 
@@ -56,7 +58,11 @@ class Consoles extends Model implements JWTSubject
         return [];
     }
 
-    protected $dates = [
-        'deleted_at'
-    ];
+    /**
+     * The attributes that should be mutated to dates.
+     * scratchcode.io
+     * @var array
+     */
+ 
+    protected $dates = [ 'deleted_at' ];
 }

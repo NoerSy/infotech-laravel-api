@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
             $table->string('email')->unique();
+            $table->string('images') -> nullable();
             $table->string('password');
             $table->softDeletes();
             $table->timestamps();

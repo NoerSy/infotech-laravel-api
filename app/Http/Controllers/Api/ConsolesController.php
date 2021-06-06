@@ -30,7 +30,7 @@ class ConsolesController extends Controller
         $validator = Validator::make($request->all(), [
             'merek' => 'required|string|max:20',
             'type' => 'required|string|max:20',
-            'isSewa' =>'required'
+            'isSewa' => 'required'
         ]);
 
 
@@ -46,6 +46,7 @@ class ConsolesController extends Controller
             'merek' => $request->input('merek'),
             'type' => $request->input('type'),
             'isSewa' => $request->input('isSewa'),
+            'image' => $request->input('image'),
             'description' => $request->input('description')
         ]);
 
@@ -53,6 +54,55 @@ class ConsolesController extends Controller
             'message' => 'item has been created!',
             'user' => $consoles
         ]);
+    }
 
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'merek' => 'required|string|max:20',
+            'type' => 'required|string|max:20',
+            'isSewa' => 'required'
+        ]);
+
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'success' => false,
+                'error' => $validator->errors()->toArray()
+            ], 400);
+        }
+
+
+        $consoles = Consoles::find($id)->update([
+            'merek' => $request->input('merek'),
+            'type' => $request->input('type'),
+            'isSewa' => $request->input('isSewa'),
+            'image' => $request->input('image'),
+            'description' => $request->input('description')
+        ]);
+
+        return response()->json([
+            'message' => 'item has been update!',
+            'user' => $consoles
+        ]);
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $console = Consoles::find($id);
+        if ($console != null) {
+            $console->delete();
+            return response(['message' => 'Console has been deleted!']);
+        } else {
+            return response([
+                'message' => 'No data found!',
+            ], 403);
+        }
     }
 }

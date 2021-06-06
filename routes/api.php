@@ -4,6 +4,8 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ConsolesController;
 use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\UsersController;
+use App\Http\Controllers\Api\UserSewaController;
+use App\Models\UserSewa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,12 +31,25 @@ Route::prefix('v1')->group(function () {
 
     Route::prefix('users')->group(function () {
         Route::get('all', [UsersController::class, 'index']);
+        Route::put('{id}', [UsersController::class, 'update']);
+        Route::delete('{id}', [UsersController::class, 'destroy']);
     }); 
 
     Route::prefix('consoles')->group(function () {
         Route::get('all', [ConsolesController::class, 'index']);
         Route::post('add', [ConsolesController::class, 'add']);
+        Route::put('{id}', [ConsolesController::class, 'update']);
+        Route::delete('{id}', [ConsolesController::class, 'destroy']);
     }); 
+
+    Route::prefix('pesanan')->group(function () {
+        Route::get('all', [UserSewaController::class, 'index']);
+        Route::post('new', [UserSewaController::class, 'new']);
+        Route::put('diambil', [UserSewaController::class, 'diambil']);
+        Route::put('dikembalikan', [UserSewaController::class, 'dikembalikan']);
+        Route::delete('{id}', [UserSewaController::class, 'destroy']);
+    }); 
+
 
     Route::middleware('jwt.verify')->group(function(){
         Route::apiResource('suppliers', SupplierController::class, [

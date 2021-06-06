@@ -6,11 +6,12 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +22,7 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'role',
         'email',
+        'image',
         'password',
     ];
 
@@ -34,11 +36,13 @@ class User extends Authenticatable implements JWTSubject
         'remember_token',
     ];
 
-    public function userSewa(){
+    public function userSewa()
+    {
         return $this->hasMany('App\Models\UserSewa');
     }
 
-    public function role(){
+    public function role()
+    {
         return $this->hasOne('App\Models\Roles');
     }
 
@@ -59,4 +63,12 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    /**
+     * The attributes that should be mutated to dates.
+     * scratchcode.io
+     * @var array
+     */
+
+    protected $dates = ['deleted_at'];
 }

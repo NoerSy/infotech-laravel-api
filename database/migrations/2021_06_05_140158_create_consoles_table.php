@@ -26,8 +26,9 @@ class CreateConsolesTable extends Migration
             $table->foreignId('isSewa')->references('id')
                 ->on('sewa_statuses')
                 ->onDelete('cascade')
-                ->onUpdate('cascade');
+                ->onUpdate('cascade') -> default(1);
             $table->text('description')->nullable();
+            $table->string('images') -> nullable();
             $table->softDeletes();
             $table->timestamps();
         });
