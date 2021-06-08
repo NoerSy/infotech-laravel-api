@@ -10,12 +10,19 @@ use Illuminate\Support\Facades\Validator;
 
 class ConsolesController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('jwt.verify', ['except' => ['login', 'register']]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function show()
     {
         $consoles = Consoles::all();
         return response([

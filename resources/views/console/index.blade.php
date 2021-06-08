@@ -1,17 +1,17 @@
 @extends('layouts.master')
-@section('title', 'Suppliers')
+@section('title', 'Console')
 @section('content')
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Suppliers</h1>
+                    <h1 class="m-0">Console</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Suppliers</li>
+                        <li class="breadcrumb-item active">Console</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -26,35 +26,49 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <h3 class="card-title">Data table of suppliers</h3>
-                        <a href="{{ route('suppliers.create') }}" class="btn btn-sm btn-success"><i
-                                class="fas fa-plus"></i>
+                        <h3 class="card-title">Data table of console</h3>
+                        <a href="{{ route('console.create') }}" class="btn btn-sm btn-success"><i class="fas fa-plus"></i>
                             Create</a>
                     </div>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <table id="table-suppliers" class="table table-bordered table-striped">
+                    <table id="table-console" class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Name</th>
-                                <th>Telp</th>
-                                <th>Total Product</th>
+                                <th>Gambar</th>
+                                <th>Seri</th>
+                                <th>Merek</th>
+                                <th>Satus</th>
+                                <th>Descripsion</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($suppliers as $supplier)
+                            @foreach ($console as $supplier)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $supplier->name }}</td>
-                                    <td>{{ $supplier->telp }}</td>
-                                    <td>{{ $supplier->products->count() }}</td>
+                                    <td><a href="{{ $supplier->image }}">Link</a></td>
+                                    <td>{{ $supplier->type }}</td>
+
+                                    @if ($supplier->isSewa == 1)
+                                        <td>Digudang</td>
+                                    @elseif($supplier->isSewa == 2)
+                                        <td>Menunggu</td>
+                                    @elseif($supplier->isSewa == 3)
+                                        <td>Disewakan</td>
+                                    @elseif($supplier->isSewa == 4)
+                                        <td>Digudang</td>
+                                    @endif
+
+                                    <td>{{ $supplier->merek }}</td>
+                                    <td>{{ $supplier->description }}</td>
                                     <td>
-                                        <a href="{{ route('suppliers.edit', [$supplier->id]) }}"
+                                        <a href="{{ route('console.edit', [$supplier->id]) }}"
                                             class="btn btn-warning float-left m-1">Edit</a>
-                                        <form class="float-left m-1" action="{{ route('suppliers.destroy', [$supplier->id]) }}" method="POST">
+                                        <form class="float-left m-1"
+                                            action="{{ route('console.destroy', [$supplier->id]) }}" method="POST">
                                             @method('delete')
                                             @csrf
                                             <button type="submit" class="btn btn-danger">Delete</a>
@@ -66,9 +80,10 @@
                         <tfoot>
                             <tr>
                                 <th>#</th>
-                                <th>Name</th>
-                                <th>Telp</th>
-                                <th>Total Product</th>
+                                <th>Gambar</th>
+                                <th>Seri</th>
+                                <th>Merek</th>
+                                <th>Descripsion</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
@@ -87,7 +102,7 @@
     <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
     <script>
         $(function() {
-            $("#table-suppliers").DataTable({
+            $("#table-console").DataTable({
                 "responsive": true,
                 "autoWidth": false,
             });

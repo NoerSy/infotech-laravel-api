@@ -10,15 +10,21 @@ use Illuminate\Support\Facades\Validator;
 
 class UserSewaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('jwt.verify', ['except' => ['login', 'register']]);
+    }
+
+    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function show()
     {
 
-        $sewa = UserSewa::Where('user_id', auth()->id())->all();
+        $sewa = UserSewa::Where('user_id', auth()->id())->get();
         return response([
             'total' => $sewa->count(),
             'messages' => 'Retrieved successfuly',

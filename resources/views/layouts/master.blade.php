@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>TOKO PETRIK | @yield('title')</title>
+    <title>Console Rental | @yield('title')</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -108,18 +108,10 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('products.index') }}" class="nav-link {{Request::is('*products*') ? 'active' : ''}}">
+                            <a href="{{ route('console.index') }}" class="nav-link {{Request::is('*products*') ? 'active' : ''}}">
                                 <i class="nav-icon fas fa-box-open"></i>
                                 <p>
-                                    Products
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('suppliers.index') }}" class="nav-link {{Request::is('*suppliers*') ? 'active' : ''}}">
-                                <i class="nav-icon fas fa-shopping-basket"></i>
-                                <p>
-                                    Suppliers
+                                    Console
                                 </p>
                             </a>
                         </li>

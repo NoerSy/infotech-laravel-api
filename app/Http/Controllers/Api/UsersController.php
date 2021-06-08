@@ -11,12 +11,19 @@ use App\Models\Users;
 
 class UsersController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('jwt.verify', ['except' => ['login', 'register']]);
+    }
+
+    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function show()
     {
         $users = Users::all();
         return response([

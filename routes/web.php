@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\ConsolesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,5 +18,4 @@ Route::get('/', function () {
     return view('index');
 })->name('dashboard.index');
 
-Route::resource('suppliers', SupplierController::class);
-Route::resource('products', ProductController::class);
+Route::resource('console', ConsolesController::class);
